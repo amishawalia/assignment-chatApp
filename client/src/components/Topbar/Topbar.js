@@ -1,5 +1,7 @@
 import './Topbar.css';
 import {Search,Person,Chat,Notifications} from '@material-ui/icons';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Tooltip from '@mui/material/Tooltip';
 
 const Topbar = () => {
     return <>
@@ -17,10 +19,10 @@ const Topbar = () => {
                 </div>
             </div>
             <div className='topbarRight'>
-                <div className="topbarLinks">
+                {/* <div className="topbarLinks">
                     <span className="topbarLink">Homepage</span>
                     <span className="topbarLink">Timeline</span>
-                </div>
+                </div> */}
                 <div className="topbarIcons">
                     <div className='topbarIconItem'>
                         <Person/>
@@ -35,11 +37,16 @@ const Topbar = () => {
                         <span className='topbarIconBadge'>3</span>
                     </div>
                 </div>
+             
                 <img 
                     src='https://res.cloudinary.com/diqqf3eq2/image/upload/v1595959131/person-2_ipcjws.jpg' 
                     alt='Profile Pic' 
                     className='topbarImg'
                 />
+                <Tooltip title='Logout'>
+                    <ArrowDropDownIcon/>
+                </Tooltip>
+                
             </div>
         </div>
     </>

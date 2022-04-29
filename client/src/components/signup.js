@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../axios";
 import {
   Grid,
@@ -14,7 +14,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-const Signup = () => {
+const Signup = (props) => {
   const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -28,7 +28,11 @@ const Signup = () => {
     password: "",
     cnfpass: "",
   });
-  const [error, seterror] = useState("");
+  const [error, seterror] = useState({
+    phone:'',
+    password:''
+  });
+  const [signUpError,setSignUpError] = useState('');
   const containsSpecialChar = (password) => {
     var format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/;
     return format.test(password);
@@ -44,15 +48,16 @@ const Signup = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+    seterror({phone:'',password:''});
     if (
       user.password === user.cnfpass &&
       containsSpecialChar(user.password) &&
       user.password.length >= 8
     ) {
       if (isNaN(user.phone) || user.phone.length !== 10) {
-        seterror("Invalid phone number");
-
-        alert(error);
+        seterror({...error,phone:"Invalid phone number"});
+        // console.log(error);
+        // alert(error);
       } else {
         try {
           let d = user;
@@ -62,16 +67,24 @@ const Signup = () => {
             withCredentials: true,
           });
           console.log(r.data);
+          props.updateStatus(true);
         } catch (error) {
           console.log(error);
+          setSignUpError(error?.data);
         }
       }
     } else {
-      seterror("Invalid password format");
-      alert(error);
+      if (isNaN(user.phone) || user.phone.length !== 10) {
+        seterror({password:"Invalid password format",phone:"Invalid phone number"}); 
+      } else {
+        seterror({...error, password:"Invalid password format"})
+      }
     }
   };
 
+  useEffect(() => {
+    console.log(error);
+  }, [error])
   return (
     <Grid>
       <Paper style={paperStyle}>
@@ -80,7 +93,7 @@ const Signup = () => {
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
           <h2 style={headerStyle}>Sign Up</h2>
-          <Typography variant="caption" gutterBottom>
+          <Typography variant="caption" gutterBottom component={'div'}>
             Please fill this form to create an account !
           </Typography>
         </Grid>
@@ -105,6 +118,7 @@ const Signup = () => {
             type={"email"}
           />
           <br></br>
+          <br/>
           <FormControl component="fieldset" style={marginTop}>
             <FormLabel component="legend">Gender</FormLabel>
             <RadioGroup
@@ -138,6 +152,7 @@ const Signup = () => {
             value={user.phone}
             required
           />
+          <small style={{float:'right',color:'red'}}>{error.phone}</small>
           <TextField
             fullWidth
             label="Password"
@@ -148,6 +163,7 @@ const Signup = () => {
             required
             type={"password"}
           />
+          <small style={{float:'right',color:'red'}}>{error.password}</small>
           <br></br>
           <TextField
             fullWidth
@@ -159,9 +175,12 @@ const Signup = () => {
             required
             type={"password"}
           />
-          <Button type="submit" variant="contained" color="primary">
+          <small style={{float:'right',color:'red'}}>{error.password}</small>
+          {error.password ? <small style={{float:'right'}}>Hint: Password must be atleast 8 characters long and have a special character</small> : ''}
+          <Button type="submit" variant="contained" color="primary" style={{marginTop:'5px'}}>
             Sign up
           </Button>
+          <small style={{float:'right',color:'red'}}>{signUpError}</small>
         </form>
       </Paper>
     </Grid>

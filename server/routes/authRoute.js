@@ -12,7 +12,8 @@ route.post("/signup", async (req, res) => {
   } else res.status(200).send("ok");
 });
 
-route.get("/login", async (req, res) => {
+route.post("/login", async (req, res) => {
+  console.log(req.body);
   const { error, jwtoken } = await login(req.body);
   if (error) {
     res.status(404).send(JSON.stringify(error));
