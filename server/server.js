@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const socketio = require("socket.io");
 const cookieParser = require("cookie-parser");
 dotenv.config();
 
@@ -16,8 +17,21 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api", require("./routes/authRoute"));
-
 app.use("/welcome", require("./routes/welcomeRoute"));
+app.use("/inbox", require("./routes/inboxRoute"));
+app.use("/search", require("./routes/searchRoute"));
+
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    allowedHeaders: ["*"],
+    credentials: true,
+  },
+});
+
+app.set("socketio", io);
+
+const rSocket = require("./controllers/rootSocket")(io);
 
 const PORT = process.env.PORT || 3010;
 server.listen(PORT, async (err) => {
