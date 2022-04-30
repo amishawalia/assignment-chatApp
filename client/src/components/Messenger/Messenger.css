@@ -56,18 +56,32 @@
   }
   
   .chatMenu {
-    flex: 3.5;
-  }
+    flex: 1.5;
+    /* background: #e8ecee; */ /* fallback for old browsers */
+
+    }
   
   .chatMenuInput {
     width: 90%;
     padding: 10px 0;
     border: none;
     border-bottom: 1px solid gray;
+    
   }
-  
+ .inputfield{
+  margin-bottom: 7px;
+  padding: 7px;
+  width: 90%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 3px 5px -3px #000;
+}
+
+
+ 
   .chatBox {
     flex: 5.5;
+    background-image: url("https://cdn.wallpapersafari.com/54/0/HluF7g.jpg");
   }
   
   .chatBoxWrapper {
@@ -81,7 +95,17 @@
     height: 100%;
     overflow-y: scroll;
     padding-right: 10px;
+
   }
+  .chatBoxTop {
+    /* overflow-y: scroll; */
+    scrollbar-width: 10px; /* Firefox */
+    -ms-overflow-style: 10px;  /* Internet Explorer 10+ */
+}
+.chatBoxTop::-webkit-scrollbar { /* WebKit */
+    width: 10px;
+    height: 10px;
+}
   
   .chatBoxBottom {
     margin-top: 5px;
@@ -94,6 +118,7 @@
     width: 80%;
     height: 90px;
     padding: 10px;
+    
   }
   
   .chatSubmitButton {

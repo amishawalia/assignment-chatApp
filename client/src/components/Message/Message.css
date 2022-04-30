@@ -29,6 +29,7 @@
     align-items: flex-end;
 }
 .message.own .messageText{
-    background-color: rgb(245, 241, 241);
+    
+    background-color: rgb(204 200 200);
     color:black ;
 }

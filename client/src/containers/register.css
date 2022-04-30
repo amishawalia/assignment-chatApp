@@ -1,7 +1,7 @@
 .wrapper{
     display: flex;
     align-items: center;
-    padding: 100px 190px;
+    padding: 55px;
 
 }
 .left-wrapper{
@@ -33,6 +33,6 @@
       font-size: 50px;
 
 }
-img{
+.logoimg{
     margin-left: 120px;
 }

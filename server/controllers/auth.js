@@ -47,7 +47,7 @@ const login = async (userObject) => {
       if (!ifSame) return { error: "credsNotMatched" };
       userExists.password = "";
       const jwtoken = await tokenGenerator(userExists.toJSON(), "1d");
-      return { error: null, jwtoken };
+      return { error: null, userExists, jwtoken };
     }
     return { error: "credsNotMatched" };
   } catch (error) {

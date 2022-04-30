@@ -1,47 +1,62 @@
-import './Topbar.css';
-import {Search,Person,Chat,Notifications} from '@material-ui/icons';
+import "./Topbar.css";
+import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import Avatar from '@mui/material/Avatar';
+import { useState } from "react";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
 
-const Topbar = () => {
-    return <>
-        <div className='topbarContainer'>
-            <div className='topbarLeft'>
-                <span className='logo'>ChatApp</span>
-            </div>
-            <div className='topbarCenter'>
-                <div className='searchbar'>
-                    <Search className='searchIcon'/>
-                    <input 
-                        placeholder='Search for a friend or group'
-                        className='searchInput'
-                    />
-                </div>
-            </div>
-            <div className='topbarRight'>
-                <div className="topbarLinks">
-                    <span className="topbarLink">Homepage</span>
-                    <span className="topbarLink">Timeline</span>
-                </div>
-                <div className="topbarIcons">
-                    <div className='topbarIconItem'>
-                        <Person/>
-                        <span className='topbarIconBadge'>1</span>
-                    </div>
-                    <div className='topbarIconItem'>
-                        <Chat/>
-                        <span className='topbarIconBadge'>2</span>
-                    </div>
-                    <div className='topbarIconItem'>
-                        <Notifications/>
-                        <span className='topbarIconBadge'>3</span>
-                    </div>
-                </div>
-                <img 
-                    src='https://res.cloudinary.com/diqqf3eq2/image/upload/v1595959131/person-2_ipcjws.jpg' 
-                    alt='Profile Pic' 
-                    className='topbarImg'
-                />
-            </div>
+const Topbar = ({ userName }) => { //changes
+  console.log("topbar");
+
+
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: "white",
+        color: "black"
+      },
+      children: `${name.toUpperCase().charAt(0)}`,
+    };
+  }
+
+const dispatch = useDispatch(); 
+  return (
+    <>
+      <div className="topbarContainer">
+        <div className="topbarLeft">
+          <span className="logo"> {` ${userName}`}</span>
         </div>
+        <h1 className="head">ChatApp</h1>
+        {/* <div className="topbarCenter">
+          <div className="searchbar">
+            <Search className="searchIcon" />
+            <input
+              value={search}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setSearch(e.target.value);
+              }}
+            />
+          </div>
+        </div> */}
+        <div className="topbarRight " onClick={() => { axios.get("http://localhost:5000/api/logout").then(response =>{
+          console.log(response);
+          if (response?.status == 200) {
+              dispatch({type:'logout',value:false})
+          }
+        })}}>
+
+
+          <Avatar {...stringAvatar(`${userName}`)} />
+          <Tooltip title='Logout'>
+            <ArrowDropDownIcon />
+          </Tooltip>
+        </div>
+      </div>
     </>
-}
+  );
+};
 export default Topbar;

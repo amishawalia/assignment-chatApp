@@ -8,6 +8,9 @@
 .conversation:hover {
     background-color: rgb(177, 171, 171);
 }
+.active{
+  background-color: rgb(229, 226, 226);
+}
 .conversationImg {
     width: 40px;
     height: 40px;
@@ -18,3 +21,86 @@
 .conversationName {
     font-weight: 500;
 }
+
+.card {
+    width: 320px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 5px;
+
+  }
+
+  .card_item {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    cursor: pointer;
+  }
+  .card_item:hover{
+    background: rgba(212, 212, 217, 0.3019607843);
+  }
+  .card_item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  .card_item-info {
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    position: relative;
+  }
+  .card_item-info h3 {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .card_item-info p {
+    color: #9597A1;
+    font-size: 13px;
+    overflow: hidden;
+    white-space: nowrap; /* Don't forget this one */
+    text-overflow: ellipsis ;
+    width: 100px;
+
+  }
+  .card_item-info_meta {
+    margin-left: auto;
+  }
+  .card_item-info_meta p {
+    font-size: 11px;
+    margin-left: 80px !important;
+
+  }
+  .online {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #86bb71;
+    font-size: 10px;
+    font-weight: 400;
+    color: #fff;
+    display: grid;
+    place-content: center;
+    position: absolute;
+    
+    right: 5px;
+  }
+  .offline{
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #E38968;
+    font-size: 10px;
+    font-weight: 400;
+    color: #fff;
+    display: grid;
+    place-content: center;
+    position: absolute;
+    right: 5px;
+  }
+  
