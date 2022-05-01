@@ -1,3 +1,4 @@
+
 .messenger {
   height: calc(100vh - 70px);
   display: flex;
@@ -146,4 +147,11 @@
   /* WebKit */
   width: 0;
   height: 0;
+}
+
+.whiteboardStyling{
+  text-decoration: none;
+}
+.whiteboardStyling:visited{
+  color: #1877f2;
 }
