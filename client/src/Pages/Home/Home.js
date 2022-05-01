@@ -14,7 +14,6 @@ const Home = ({ userName, _id }) => {
   const [matches, setMatches] = useState([]);
   const [active, setActive] = useState(false);
   const [oldChatsArray, setOldChatsArray] = useState([]);
-  const [sendMessage, setSendMessage] = useState("");
   const activeInfo = useRef(false);
   const [oldConvoArray, setOldConvoArray] = useState([]);
   const [array, setArray] = useState([]);
@@ -266,6 +265,8 @@ const Home = ({ userName, _id }) => {
             isGroup ? idWithUpdate : idWhoSentTheMessage,
             isGroup
           );
+          await retainOldConversations();
+
           // await seenProcedure(
           //   isGroup ? idWithUpdate : idWhoSentTheMessage,
           //   isGroup,
@@ -289,11 +290,11 @@ const Home = ({ userName, _id }) => {
       });
     });
 
-    //   socket.on("new-group-created", (_id, onlineMembers) => {
-    //     console.log(_id, onlineMembers);
-    //     socket.emit("in-new-group", _id, onlineMembers);
-    //     retainOldConversations();
-    //   });
+    socket.on("new-group-created", (_id, onlineMembers) => {
+      console.log(_id, onlineMembers);
+      socket.emit("in-new-group", _id, onlineMembers);
+      retainOldConversations();
+    });
   }, [retainOldMessages, retainOldConversations]);
 
   // to send a message to first database and then the callback value is used to sent back to socket server
@@ -309,7 +310,7 @@ const Home = ({ userName, _id }) => {
       const sendInfo = JSON.stringify({
         _id1: _id,
         _id2: recieverObj._id,
-        isGroup: recieverObj.admin ? true : false,
+        isGroup: recieverObj.admins ? true : false,
       });
       const msg = await axios.put(`/inbox/chatbox/${sendInfo}`, dataToSend);
       console.log(msg.data);
@@ -348,7 +349,7 @@ const Home = ({ userName, _id }) => {
       }
       await retainOldMessages(
         recieverObj._id,
-        recieverObj.admin ? true : false
+        recieverObj.admins ? true : false
       );
     } catch (error) {
       console.log(error);
@@ -357,15 +358,14 @@ const Home = ({ userName, _id }) => {
   };
 
   //   // when a message is sent by the user
-  const messageSender = async (receiverObj, file) => {
-    setSendMessage("");
+  const messageSender = async (receiverObj) => {
     if (search.length) setSearch("");
     console.log(receiverObj);
     let personalChatId = await sendMessages(receiverObj);
     const payloadToSend = {
-      isGroup: receiverObj.admin ? true : false,
+      isGroup: receiverObj.admins ? true : false,
       senderId: _id, //personaluser id
-      roomId: receiverObj.admin //perchat or groupchat id
+      roomId: receiverObj.admins //perchat or groupchat id
         ? receiverObj._id
         : personalChatId
         ? personalChatId
@@ -405,64 +405,67 @@ const Home = ({ userName, _id }) => {
   };
 
   //   // to make new group
-  //   const makeGroup = async (formData) => {
-  //     try {
-  //       formData.append("members", _id);
-  //       formData.append("admin", _id);
-  //       formData.append("adminName", userName``);
-  //       let { data } = await axios.post(`/inbox/makegroup/`, formData, {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       });
-  //       if (data.token) setAuthenticated(false);
-  //       retainOldConversations();
-  //       setLoading(false);
-  //       if (!data.success) socket.emit("new-group-creation", data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const makeGroup = async (groupInfo) => {
+    groupInfo.creater = userName;
+    try {
+      let { data } = await axios.post(`/inbox/makegroup/`, groupInfo);
+      if (data.token) setAuthenticated(false);
+      console.log(data.data);
+      retainOldConversations();
+      setLoading(false);
+      if (!data.success) socket.emit("new-group-creation", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
-      <div>
-        <Topbar userName={userName} search={search} setSearch={setSearch} />
-        <PropsToPassToConversation.Provider
-          value={{
-            setActive,
-            activeInfo,
-            retainOldMessages,
-            setIsGroup,
-            active,
-            isGroup,
-            userName,
-            getTimeToDisplayOnChat,
-          }}
-        >
-          {matches.length  ? (
-            <Messenger
-              friends={matches}
-              array={oldChatsArray}
-              _id={_id}
-              activeInfo={activeInfo}
-              messageSender={messageSender}
-              getTimeToDisplayOnChat={getTimeToDisplayOnChat}
-              search={search} setSearch={setSearch} //changes 
-            />
-          ) : (
-            <Messenger
-              friends={friends}
-              array={oldChatsArray}
-              _id={_id}
-              activeInfo={activeInfo}
-              getTimeToDisplayOnChat={getTimeToDisplayOnChat}
-              messageSender={messageSender}
-              search={search} setSearch={setSearch} //changes 
-            />
-          )}
-        </PropsToPassToConversation.Provider>
-      </div>
+      {authenticated ? (
+        <div>
+          <Topbar userName={userName} search={search} setSearch={setSearch} />
+          <PropsToPassToConversation.Provider
+            value={{
+              setActive,
+              activeInfo,
+              retainOldMessages,
+              setIsGroup,
+              active,
+              isGroup,
+              userName,
+              getTimeToDisplayOnChat,
+            }}
+          >
+            {matches.length ? (
+              <Messenger
+                friends={matches}
+                array={oldChatsArray}
+                _id={_id}
+                activeInfo={activeInfo}
+                messageSender={messageSender}
+                getTimeToDisplayOnChat={getTimeToDisplayOnChat}
+                search={search}
+                setAuthenticated={setAuthenticated}
+                makeGroup={makeGroup}
+                setSearch={setSearch} //changes
+              />
+            ) : (
+              <Messenger
+                friends={friends}
+                array={oldChatsArray}
+                _id={_id}
+                activeInfo={activeInfo}
+                getTimeToDisplayOnChat={getTimeToDisplayOnChat}
+                messageSender={messageSender}
+                setAuthenticated={setAuthenticated}
+                search={search}
+                makeGroup={makeGroup}
+                setSearch={setSearch} //changes
+              />
+            )}
+          </PropsToPassToConversation.Provider>
+        </div>
+      ) : null}
     </>
   );
 };

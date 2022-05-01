@@ -29,10 +29,10 @@ const Signup = (props) => {
     cnfpass: "",
   });
   const [error, seterror] = useState({
-    phone:'',
-    password:''
+    phone: "",
+    password: "",
   });
-  const [signUpError,setSignUpError] = useState('');
+  const [signUpError, setSignUpError] = useState("");
   const containsSpecialChar = (password) => {
     var format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>?~]/;
     return format.test(password);
@@ -48,14 +48,14 @@ const Signup = (props) => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
-    seterror({phone:'',password:''});
+    seterror({ phone: "", password: "" });
     if (
       user.password === user.cnfpass &&
       containsSpecialChar(user.password) &&
       user.password.length >= 8
     ) {
       if (isNaN(user.phone) || user.phone.length !== 10) {
-        seterror({...error,phone:"Invalid phone number"});
+        seterror({ ...error, phone: "Invalid phone number" });
         // console.log(error);
         // alert(error);
       } else {
@@ -70,21 +70,24 @@ const Signup = (props) => {
           props.updateStatus(true);
         } catch (error) {
           console.log(error);
-          setSignUpError(error?.data);
+          setSignUpError(error?.response?.data);
         }
       }
     } else {
       if (isNaN(user.phone) || user.phone.length !== 10) {
-        seterror({password:"Invalid password format",phone:"Invalid phone number"}); 
+        seterror({
+          password: "Invalid password format",
+          phone: "Invalid phone number",
+        });
       } else {
-        seterror({...error, password:"Invalid password format"})
+        seterror({ ...error, password: "Invalid password format" });
       }
     }
   };
 
   useEffect(() => {
     console.log(error);
-  }, [error])
+  }, [error]);
   return (
     <Grid>
       <Paper style={paperStyle}>
@@ -93,7 +96,7 @@ const Signup = (props) => {
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
           <h2 style={headerStyle}>Sign Up</h2>
-          <Typography variant="caption" gutterBottom component={'div'}>
+          <Typography variant="caption" gutterBottom component={"div"}>
             Please fill this form to create an account !
           </Typography>
         </Grid>
@@ -118,7 +121,7 @@ const Signup = (props) => {
             type={"email"}
           />
           <br></br>
-          <br/>
+          <br />
           <FormControl component="fieldset" style={marginTop}>
             <FormLabel component="legend">Gender</FormLabel>
             <RadioGroup
@@ -152,7 +155,7 @@ const Signup = (props) => {
             value={user.phone}
             required
           />
-          <small style={{float:'right',color:'red'}}>{error.phone}</small>
+          <small style={{ float: "right", color: "red" }}>{error.phone}</small>
           <TextField
             fullWidth
             label="Password"
@@ -163,7 +166,9 @@ const Signup = (props) => {
             required
             type={"password"}
           />
-          <small style={{float:'right',color:'red'}}>{error.password}</small>
+          <small style={{ float: "right", color: "red" }}>
+            {error.password}
+          </small>
           <br></br>
           <TextField
             fullWidth
@@ -175,12 +180,26 @@ const Signup = (props) => {
             required
             type={"password"}
           />
-          <small style={{float:'right',color:'red'}}>{error.password}</small>
-          {error.password ? <small style={{float:'right'}}>Hint: Password must be atleast 8 characters long and have a special character</small> : ''}
-          <Button type="submit" variant="contained" color="primary" style={{marginTop:'5px'}}>
+          <small style={{ float: "right", color: "red" }}>
+            {error.password}
+          </small>
+          {error.password ? (
+            <small style={{ float: "right" }}>
+              Hint: Password must be atleast 8 characters long and have a
+              special character
+            </small>
+          ) : (
+            ""
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "5px" }}
+          >
             Sign up
           </Button>
-          <small style={{float:'right',color:'red'}}>{signUpError}</small>
+          <small style={{ float: "right", color: "red" }}>{signUpError}</small>
         </form>
       </Paper>
     </Grid>
