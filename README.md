@@ -1,7 +1,7 @@
 
 
 # Chat App
-  This application built using Node.js, Express, Socket.io, Mongoose, RESTful Web Service.
+  This application built using Node.js, Express, Socket.io, Mongoose, RESTful Web Service,React JS.
   
   ![s2](https://github.com/amishawalia/assignment-chatApp/blob/master/Screenshot%20from%202022-05-01%2021-27-21.png)
 
@@ -10,6 +10,7 @@
   <li>Real-time communication between a client and a server using Socket.io.</li>
   <li>Uses MongoDB, Mongoose  for storing messages and querying data.</li>
   <li>Uses RESTful Web Service for serve different platforms</li> 
+  <li>Uses React.js for UI </li>
    
 # Installation
 
@@ -18,20 +19,27 @@
 Make sure you have Node.js and npm install.
 
   1. Clone or Download the repository 
-    <pre>git clone https://github.com/batuhaniskr/real-time-chat-application.git
-    $ cd Real-Time-Chat-Application</pre>
+    <pre>git clone https://github.com/amishawalia/assignment-chatApp.git
+         $ cd assignment-chatApp
+    </pre>  
   2. Install Dependencies
-      <pre>npm install</pre>
+      <pre>$ cd client
+           npm install
+           $ cd server
+           npm install
+      </pre>
   3. MongoDB start for need <pre>mongod</pre>command  from a different terminal.
   
   4. Start the Application
-     <pre>node app.js</pre>
+     <pre>In server :- $node server.js
+          In client :- $npm start
+     </pre>
   Application runs from localhost:3000.
       
 ## How It Works
 
-  A database called "chat_db" named is created via code. 
-  The nickname, msg, group information is also kept in the table named Messages.
+  A database called "real-time-app.db" named is created via code. 
+  The userName, messages, group information is also kept in the table formed.
     
   User to user, As a publication broadcast or group in the room  messaging.
   User to user messaging:
