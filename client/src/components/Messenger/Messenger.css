@@ -1,3 +1,4 @@
+
 .messenger {
   height: calc(100vh - 70px);
   display: flex;
@@ -152,6 +153,7 @@ whiteboardStyling {
   width: 0;
   height: 0;
 }
+
 .adminList {
   max-height: 100px;
   overflow-y: scroll;
@@ -170,3 +172,11 @@ whiteboardStyling {
   width: 0;
   height: 0;
 }
+
+.whiteboardStyling{
+  text-decoration: none;
+}
+.whiteboardStyling:visited{
+  color: #1877f2;
+}
+
