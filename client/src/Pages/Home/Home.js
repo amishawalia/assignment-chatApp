@@ -448,6 +448,7 @@ const Home = ({ userName, _id }) => {
                 setAuthenticated={setAuthenticated}
                 makeGroup={makeGroup}
                 setSearch={setSearch} //changes
+                active={active}
               />
             ) : (
               <Messenger
@@ -461,6 +462,7 @@ const Home = ({ userName, _id }) => {
                 search={search}
                 makeGroup={makeGroup}
                 setSearch={setSearch} //changes
+                active={active}
               />
             )}
           </PropsToPassToConversation.Provider>

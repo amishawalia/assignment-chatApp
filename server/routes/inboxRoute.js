@@ -9,6 +9,7 @@ const {
   groupInfoGiver,
   adminMaker,
   personalInfoGiver,
+  selfInfoGiver,
 } = require("../controllers/inbox");
 const tokenAuthenticator = require("../middlewares/tokenAuthenticator");
 const route = express.Router();
@@ -40,4 +41,6 @@ route.get("/groupinfo/:id", tokenAuthenticator, groupInfoGiver);
 route.put("/makeadmin/:groupInfo", tokenAuthenticator, adminMaker);
 
 route.get("/personalinfo/:obj", tokenAuthenticator, personalInfoGiver);
+
+route.get("/selfinfo/:userName", tokenAuthenticator, selfInfoGiver);
 module.exports = route;

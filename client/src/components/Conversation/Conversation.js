@@ -66,7 +66,7 @@ const Conversation = ({ obj }) => {
     <>
       <div
         onClick={() => {
-          setActive(obj._id);
+          setActive(true);
           console.log("inside", obj);
           // setActiveInfo({ ...val });
           activeInfo.current = obj;

@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    about: {
+      type: String,
+      default: "Available",
+    },
     groupChats: [
       {
         type: mongoose.Schema.Types.ObjectId,
