@@ -59,7 +59,9 @@ Make sure you have Node.js and npm install.
     <li>PUT is used to send and update data — Update</li>
     <li>DELETE is used to delete data — Delete  </li>
     
-  
+## PPT
+  To read more about the app you can visit:
+  (https://docs.google.com/presentation/d/10joQOgJV7Be2ezF1SRo1ciloKdhhZBr7jdqhFVSq1WE/edit?usp=sharing)
   
 
 
