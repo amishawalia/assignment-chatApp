@@ -11,6 +11,7 @@
     flex: 3;
     width: 100%;
 }
+
 .logo {
     font-size: 24px;
     margin-left: 20px;
@@ -54,3 +55,77 @@
     color: white;
     margin-left: 15%;
 }
+.profileWrapper {
+    position: relative;
+    right:150px;
+    background-color: pink;
+}
+
+  
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul.list-unstyled {
+    list-style: none;
+    list-position: outside;
+  }
+  
+  /* hr {
+    height: 0;
+    box-sizing: content-box;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: 0;
+    border-top: 1px solid #eee;
+  } */
+  
+  .profileCard {
+    max-width: 320px;
+    border: 1px solid #1877f2;
+    background: #1877f2;
+    transition: all 150ms ease-in-out;
+  }
+  .profileCard:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    box-shadow: 0 1px 40px rgba(0, 0, 0, 0.15);
+  }
+  .profileCard header {
+    text-align: center;
+    padding: 1em;
+    transition: all 150ms ease-in-out;
+  }
+  .profileCard header h4 {
+    color: white;
+    margin: 0;
+    line-height: 1;
+  }
+  .profileCard header img.profileAvatar {
+    border-radius: 50%;
+    height: auto;
+    padding: 10px;
+    max-width:60px;
+    transition: all 150ms ease-in-out;
+    margin-bottom: -50px;
+  }
+  .profileCard header img.profileAvatar:hover {
+    border-radius: 10%;
+    padding: 10px;
+  }
+  .profileCard header.header_hover {
+    background: #1877f2;
+  }
+  .profileCard header.header_hover img.profileAvatar {
+    background: #1877f2;
+  }
+  .profileCard.profileCard_hover {
+    border-color: #1877f2;
+  }
+  
+  .profileCardFooter {
+    margin-top: 10px;
+    background: #fff;
+    padding: 15%;
+  }
