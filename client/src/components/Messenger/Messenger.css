@@ -1,58 +1,55 @@
-
-
 .messenger {
-    height: calc(100vh - 70px);
-    display: flex;
-  }
-  
-  .chatMenu {
-    flex: 1.5;
-    /* background: #e8ecee; */ /* fallback for old browsers */
+  height: calc(100vh - 70px);
+  display: flex;
+}
 
-    }
-    .chatMenuCenter {
-      overflow-y: scroll;
-      max-height: 90%;
-    }
-    .chatMenuCenter {
-      overflow-y: scroll;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    }
-    .chatMenuCenter::-webkit-scrollbar { /* WebKit */
-      width: 0;
-      height: 0;
-    }
-    
-    .chatMenuBottom {
-      cursor: pointer;
-      background-color: #1877f2;
-      display: flex;
-      align-items: center;
-      padding: 0.2rem;
-      justify-content: center;
-      position: fixed;
-      bottom: 0;
-      width: 47vh;
-      max-width: 20%;  
-      box-sizing: border-box;
-    }
-    .chatMenuWrapper {
-      position: relative;
-    }
-    .addgrouptitle {
-      color: white;
-      margin-left: 0.5rem;
-      font-size: 17px;
-    }
-  .chatMenuInput {
-    width: 90%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid gray;
-    
-  }
- .inputfield{
+.chatMenu {
+  flex: 1.5;
+  /* background: #e8ecee; */ /* fallback for old browsers */
+}
+.chatMenuCenter {
+  overflow-y: scroll;
+  max-height: 90%;
+}
+.chatMenuCenter {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.chatMenuCenter::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+.chatMenuBottom {
+  cursor: pointer;
+  background-color: #1877f2;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  width: 47vh;
+  max-width: 20%;
+  box-sizing: border-box;
+}
+.chatMenuWrapper {
+  position: relative;
+}
+.addgrouptitle {
+  color: white;
+  margin-left: 0.5rem;
+  font-size: 17px;
+}
+.chatMenuInput {
+  width: 90%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.inputfield {
   margin-bottom: 7px;
   padding: 7px;
   width: 90%;
@@ -61,8 +58,7 @@
   box-shadow: 0 3px 5px -3px #000;
 }
 
-.chatGroupWrapper{
-  
+.chatGroupWrapper {
   background-color: #1877f2;
   display: flex;
   align-items: center;
@@ -73,81 +69,81 @@
   color: white;
   justify-content: center;
 }
-.conversationWrapper{
+.conversationWrapper {
   overflow-y: scroll;
   max-height: 100%;
 }
- 
-  .chatBox {
-    flex: 5.5;
-    background-image: url("https://cdn.wallpapersafari.com/54/0/HluF7g.jpg");
-  }
-  
-  .chatBoxWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-  }
-  
-  .chatBoxTop {
-    height: 100%;
-    overflow-y: scroll;
-    padding-right: 10px;
 
-  }
-  .chatBoxTop {
-    /* overflow-y: scroll; */
-    scrollbar-width: 10px; /* Firefox */
-    -ms-overflow-style: 10px;  /* Internet Explorer 10+ */
+.chatBox {
+  flex: 5.5;
+  background-image: url("https://cdn.wallpapersafari.com/54/0/HluF7g.jpg");
 }
-.chatBoxTop::-webkit-scrollbar { /* WebKit */
-    width: 10px;
-    height: 10px;
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
 }
-  
-  .chatBoxBottom {
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .chatMessageInput {
-    width: 80%;
-    height: 90px;
-    padding: 10px;
-    
-  }
-  
-  .chatSubmitButton {
-    width: 70px;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #1877f2;
-    color: white;
-  }
-  
-  .chatOnline {
-    flex: 3;
-  }
-  
-  .chatMenuWrapper,
-  .chatBoxWrapper,
-  .chatOnlineWrapper {
-    padding: 10px;
-    height: 100%;
-  }
+
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+.chatBoxTop {
+  /* overflow-y: scroll; */
+  scrollbar-width: 10px; /* Firefox */
+  -ms-overflow-style: 10px; /* Internet Explorer 10+ */
+}
+.chatBoxTop::-webkit-scrollbar {
+  /* WebKit */
+  width: 10px;
+  height: 10px;
+}
+
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatMessageInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+}
+
+.chatSubmitButton {
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #1877f2;
+  color: white;
+}
+
+.chatOnline {
+  flex: 3;
+}
+
+.chatMenuWrapper,
+.chatBoxWrapper,
+.chatOnlineWrapper {
+  padding: 10px;
+  height: 100%;
+}
 
 .nestedList {
   max-height: 200px;
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
-.nestedList::-webkit-scrollbar { /* WebKit */
+.nestedList::-webkit-scrollbar {
+  /* WebKit */
   width: 0;
   height: 0;
 }
