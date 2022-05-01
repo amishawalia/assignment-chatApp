@@ -15,7 +15,7 @@ import Popover from "@mui/material/Popover";
 
 const Topbar = ({ userName }) => {
   //changes
-
+  const [user, setuser] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [toggleProfile, setToggleProfile] = useState(false);
   // modal
@@ -41,7 +41,7 @@ const Topbar = ({ userName }) => {
   const handleLogout = () => {
     axios.get("http://localhost:5000/api/logout").then((response) => {
       console.log(response);
-      if (response?.status == 200) {
+      if (response?.status === 200) {
         dispatch({ type: "logout", value: false });
       }
     });
@@ -107,6 +107,19 @@ const Topbar = ({ userName }) => {
             <MenuItem>
               <div
                 onClick={(event) => {
+                  const fdata = async () => {
+                    try {
+                      const res = await axios.get(
+                        "/inbox/selfinfo/" + userName
+                      );
+                      console.log(res.data);
+                      setuser(res.data);
+                      // se(res.data);
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  };
+                  fdata();
                   setToggleProfile(!toggleProfile);
                   console.log(toggleProfile);
                   setAnchorElPopup(event.currentTarget);
@@ -131,19 +144,14 @@ const Topbar = ({ userName }) => {
                         <header className="profileCardHeader">
                           <h4>{userName}</h4>
 
-                          <img
-                            src="/assets/avatar.png"
-                            class="profileAvatar"
-                          />
+                          <img src="/assets/avatar.png" class="profileAvatar" />
                         </header>
                         <footer className="profileCardFooter">
                           <ul class="list-unstyled">
-                            <li>
-                             Email
-                            </li>
-                            <li>
-                              Phone
-                            </li>
+                            <li>Email: {user?.email}</li>
+                            <li>Phone: {user?.phone}</li>
+                            <li>About: {user?.about}</li>
+                            <li>Gender: {user?.gender}</li>
                           </ul>
                         </footer>
                       </div>

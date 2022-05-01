@@ -232,29 +232,38 @@ const groupInfoGiver = async (req, res, next) => {
   try {
     const group = await Group.findOne({ _id })
       .lean()
-      .populate("members", "_id name")
-      .populate("admin", "_id name");
+      .populate("members", "_id userName")
+      .populate("admins", "_id userName");
     console.log(group);
     res.json({
       groupName: group.name,
-      groupBranch: group.branch,
-      groupBatch: group.batch,
       groupAbout: group.about,
-      admin: group.admin,
+      admins: group.admins,
       members: group.members,
-      publicId: group.publicId ? group.publicId : "undefined",
     });
   } catch (error) {
     res.json({
       groupName: "",
-      groupBranch: "",
-      groupBatch: "",
       groupAbout: "",
-      admin: [],
+      admins: [],
       members: [],
-      publicId: group.publicId,
     });
     console.log(error);
+  }
+};
+
+const selfInfoGiver = async (req, res, next) => {
+  const userName = req.params.userName;
+  try {
+    const user = await User.findOne(
+      { userName },
+      { userName: 1, email: 1, phone: 1, gender: 1, about: 1 }
+    );
+    console.log(user);
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.json(error);
   }
 };
 
@@ -274,24 +283,23 @@ const adminMaker = async (req, res, next) => {
 };
 
 const personalInfoGiver = async (req, res, next) => {
+  console.log(req.params.obj, "------------''''");
   const { selfId, idOfPerson } = JSON.parse(req.params.obj);
 
   try {
     const users = await User.findOne(
       { _id: idOfPerson },
       {
-        name: 1,
+        userName: 1,
         email: 1,
-        lib: 1,
-        isStudent: 1,
-        branch: 1,
-        batch: 1,
-        groupChats: 1,
-        inboxStatus: 1,
+        phone: 1,
+        gender: 1,
+        about: 1,
       }
     )
-      .populate("groupChats", "_id members name publicId")
+      .populate("groupChats", "_id members name")
       .lean();
+    console.log(users);
     let groupsInCommon = [];
     users.groupChats.map((group) => {
       if (
@@ -302,10 +310,10 @@ const personalInfoGiver = async (req, res, next) => {
         groupsInCommon.push({
           _id: group._id,
           name: group.name,
-          publicId: group.publicId,
         });
       }
     });
+    console.log("INSIDE INFO GIVERRRRR", users);
     let { groupChats, ...userInfo } = users;
     userInfo = { ...userInfo, groupsInCommon };
     res.json(userInfo);
@@ -335,4 +343,5 @@ module.exports = {
   groupInfoGiver,
   adminMaker,
   personalInfoGiver,
+  selfInfoGiver,
 };

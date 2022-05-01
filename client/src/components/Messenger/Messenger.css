@@ -2,7 +2,12 @@
   height: calc(100vh - 70px);
   display: flex;
 }
-
+whiteboardStyling {
+  text-decoration: none;
+}
+.whiteboardStyling:visited {
+  color: #1877f2;
+}
 .chatMenu {
   flex: 1.5;
   /* background: #e8ecee; */ /* fallback for old browsers */
@@ -143,6 +148,24 @@
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 .nestedList::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+.adminList {
+  max-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; 
+}
+.groupMembersList {
+  max-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; 
+}
+
+.adminList::-webkit-scrollbar,.groupMembersList::-webkit-scrollbar {
   /* WebKit */
   width: 0;
   height: 0;
