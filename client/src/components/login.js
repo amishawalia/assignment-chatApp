@@ -25,7 +25,10 @@ const Login = ({ handleChange }) => {
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };
 
-  const [user, setUser] = useState({ userName: localStorage.getItem('username'), password: "" });
+  const [user, setUser] = useState({
+    userName: localStorage.getItem("username"),
+    password: "",
+  });
   const [error, setError] = useState("");
   const handleUser = (e) => {
     setUser((prev) => {
@@ -38,7 +41,7 @@ const Login = ({ handleChange }) => {
   };
   const handleLogin = async () => {
     try {
-      const checked = document.getElementById('remember');
+      const checked = document.getElementById("remember");
       console.log(checked.checked);
 
       const data = { userName: user.userName, password: user.password };
@@ -46,21 +49,20 @@ const Login = ({ handleChange }) => {
         withCredentials: true,
       });
       if (res?.status === 200) {
-        dispatch({ type: "signIn", value: user.userName });
+        dispatch({ type: "signIn", value: res.data });
         setError("");
       }
       if (checked?.checked) {
-        localStorage.setItem('username',user.userName);
+        localStorage.setItem("username", user.userName);
       } else {
-        localStorage.setItem('username','');
+        localStorage.setItem("username", "");
       }
     } catch (error) {
-      console.log("here",error);
+      console.log("here", error);
       setError("Credentials don't match");
     }
   };
 
-  
   return (
     <Grid>
       <Paper style={paperStyle}>
@@ -94,7 +96,7 @@ const Login = ({ handleChange }) => {
         <small style={{ float: "right", color: "red" }}>{error}</small>
 
         <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" id='remember'/>}
+          control={<Checkbox name="checkedB" color="primary" id="remember" />}
           label="Remember me"
         />
         <Button

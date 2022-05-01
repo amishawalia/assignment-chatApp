@@ -13,15 +13,14 @@ route.post("/signup", async (req, res) => {
 });
 
 route.post("/login", async (req, res) => {
-  console.log(req.body);
-  const { error, jwtoken } = await login(req.body);
+  const { error, jwtoken, userExists } = await login(req.body);
   if (error) {
     res.status(404).send(JSON.stringify(error));
   } else {
     res
       .status(200)
       .cookie("auth-token", jwtoken, { httpOnly: true })
-      .send(jwtoken);
+      .send(userExists);
   }
 });
 
