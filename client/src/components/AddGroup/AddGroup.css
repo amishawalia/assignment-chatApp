@@ -1,0 +1,15 @@
+.groupMembers {
+  overflow-y: scroll;
+  max-height: 150px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.groupMembers::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+.groupMember {
+  display: flex;
+  flex-direction: row;
+}

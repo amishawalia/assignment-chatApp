@@ -13,7 +13,8 @@ const searchAnyone = async (req, res) => {
       },
       { userName: 1, _id: 1 }
     ).lean();
-
+    users = users.filter((u) => String(u._id) !== _id);
+    console.log(users);
     let personalChats = await Promise.all(
       users.map(async (val) => {
         const lastMessage = await Personal.findOne(

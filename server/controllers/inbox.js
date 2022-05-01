@@ -144,8 +144,7 @@ const recentChatsNameRetriever = async (req, res, next) => {
         name: 1,
         _id: 1,
         lastMessage: 1,
-        admin: 1,
-        publicId: 1,
+        admins: 1,
       }
     );
     let recentChats = [...personalChat, ...groupChats].sort(
@@ -179,15 +178,13 @@ const findRoomsOfAUser = async (_id) => {
 };
 
 const allKonnectionsRetriever = async (req, res, next) => {
+  // console.log(req.params);
   const _id = req.params.id;
+
   try {
-    let users = await User.find(
-      {
-        // konnections: _id,
-      },
-      { userName: 1, _id: 1 }
-    ).lean();
-    users = users.filter((u) => u._id !== _id);
+    let users = await User.find({}, { userName: 1, _id: 1 }).lean();
+    users = users.filter((u) => String(u._id) !== _id);
+    // console.log(users, "konne");
     res.json(users);
   } catch (error) {
     res.json([]);
@@ -196,34 +193,21 @@ const allKonnectionsRetriever = async (req, res, next) => {
 };
 
 const newGroupMaker = async (req, res, next) => {
-  const {
-    members,
-    groupAbout,
-    groupBatch,
-    groupBranch,
-    groupName,
-    admin,
-    adminName,
-  } = req.body;
+  const { members, about, name, admins, creater } = req.body;
   try {
-    const file = req.files.file;
-    console.log(file);
-    let result = await uploadFromBuffer(file, "group-images");
     const group = new Group({
-      name: groupName,
-      batch: groupBatch,
-      branch: groupBranch,
-      admin: [admin],
+      name,
+      admins,
       members,
-      about: groupAbout,
+      creater,
+      about,
       lastMessage: {
-        _id: admin,
-        sender: adminName,
-        message: `New group`,
+        _id: admins[0],
+        sender: creater,
+        message: `I guys I created a new group`,
         timestamp: new Date(),
         isNotSeen: true,
       },
-      publicId: result.public_id,
     });
     const newGroup = await group.save();
     const users = await Promise.all(

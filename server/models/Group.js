@@ -6,7 +6,7 @@ const groupSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    admin: [
+    admins: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
@@ -51,10 +51,6 @@ const groupSchema = new mongoose.Schema(
     about: {
       type: String,
       default: "This is a group",
-    },
-    publicId: {
-      type: String,
-      default: "undefined",
     },
   },
   {
