@@ -3,7 +3,7 @@
 # Chat App
   This application built using Node.js, Express, Socket.io, Mongoose, RESTful Web Service.
   
-  ![s2](Screenshot from 2022-05-01 21-27-21.png)
+  ![s2](https://github.com/amishawalia/assignment-chatApp/blob/master/Screenshot%20from%202022-05-01%2021-27-21.png)
 
 # Features
   <li>Uses Express as the application Framework.</li> 
