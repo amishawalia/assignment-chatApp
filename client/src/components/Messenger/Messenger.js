@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import ChatOnline from "../ChatOnline/ChatOnline";
 import Conversation from "../Conversation/Conversation";
@@ -16,6 +17,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import PersonIcon from "@mui/icons-material/Person";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import CoPresentSharpIcon from "@mui/icons-material/CoPresentSharp";
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const Messenger = ({
   friends,
@@ -32,7 +35,7 @@ const Messenger = ({
   const [sendMessage, setSendMessage] = useState("");
   const [toggleGroupButton, setGroupButtonToggle] = useState(false);
   const [toggleInfo, setToggleInfo] = useState(false);
-
+  const [toggleWhiteboard, setToggleWhiteboard] = useState(false);
   const checkGroup = true;
   const checkAdmin = true;
   console.log(array);
@@ -85,8 +88,32 @@ const Messenger = ({
     p: 4,
   };
 
+  const whiteboardStyle = {
+    position: "absolute",
+    /* top: "43%",
+    left: "80%", */
+    bottom : "15%",
+    right : "0%",
+    transform: "translate(-50%, -50%)",
+    width: 150,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
   const listStyle = {
     display: "flex",
+  };
+  const handleWhiteboard = ()=>{
+    setToggleWhiteboard(!toggleWhiteboard)
+
+  }
+  const handleCloseWhiteboard = () => {
+    setToggleWhiteboard(false);
+  };
+  const handleCopyCode = () =>{
+    navigator.clipboard.writeText("Hello")
   };
   useEffect(scrollToBottom, [array]);
   return (
@@ -240,8 +267,30 @@ const Messenger = ({
                 placeholder="write a message"
                 value={sendMessage}
                 onKeyDown={enterHandler}
-                onChange={(e) => setSendMessage(e.target.value)}
+                onChang
+                e={(e) => setSendMessage(e.target.value)}
               />
+
+
+              <AppRegistrationIcon style={{color:"#1877f2", fontSize:"40px"}} onClick={handleWhiteboard}/>
+              {toggleWhiteboard && (
+              <Modal
+                open={toggleWhiteboard}
+                onClose={handleCloseWhiteboard}
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+              >
+                <Box sx={whiteboardStyle}>
+                  <p>Copy code to join room 
+                  <ContentCopyIcon onClick={handleCopyCode}/>
+                  </p>
+                  
+                  <a href="https://whiteboard-for-inno.herokuapp.com" target="_blank" className="whiteboardStyling">Tap to open whiteboard</a>
+                </Box>
+              </Modal>
+            )}   
+
+
               <button
                 className="chatSubmitButton"
                 onClick={(e) => {
@@ -258,11 +307,6 @@ const Messenger = ({
             </div>
           </div>
         </div>
-        {/*         <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline />
-          </div>
-        </div> */}
       </div>
     </>
   );
